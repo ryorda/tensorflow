@@ -4880,10 +4880,10 @@ cc_library(
         "@fft2d//:fft2d",
         "@gemmlowp//:gemmlowp",
         "@protobuf_archive//:protobuf",
-	
-	# renderscript support
-        "//tensorflow/contrib/android_renderscript_ops:android_rs_ops_utils",
-        "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
+
+        # renderscript support
+        # "//tensorflow/contrib/android_renderscript_ops:android_rs_ops_utils",
+        # "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
         # renderscript support
     ],
     alwayslink = 1,
