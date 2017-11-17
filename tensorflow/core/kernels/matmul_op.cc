@@ -35,6 +35,10 @@ limitations under the License.
 #include <time.h>
 // ### END LOGGING
 
+// renderscript support
+#include "tensorflow/contrib/android_renderscript_ops/jni/rsMatmul.h"
+#include "tensorflow/contrib/android_renderscript_ops/utils/android_utils.h"
+// renderscript support
 
 
 namespace tensorflow {
@@ -506,6 +510,14 @@ class MatMulOp : public OpKernel {
 
     LaunchMatMul<Device, T, USE_CUBLAS>::launch(
         ctx, a, b, dim_pair, &algorithms_, use_autotune_, out);
+
+    
+    //////////////////////// renderscript support
+    // androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<char*>(a.tensor_data().data())), 0, 
+    //                               static_cast<void*>(const_cast<char*>(b.tensor_data().data())), 0, 
+    //                               static_cast<void*>(const_cast<char*>(out->tensor_data().data())), 
+    //                               a.dim_size(0), b.dim_size(1), a.dim_size(1), 1, 0);
+    //////////////////////// renderscript support
 
     clock_gettime(CLOCK_MONOTONIC, &finish);
     float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
