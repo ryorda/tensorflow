@@ -36,8 +36,8 @@ limitations under the License.
 // ### END LOGGING
 
 // renderscript support
-#include "tensorflow/contrib/android_renderscript_ops/jni/rsMatmul.h"
-#include "tensorflow/contrib/android_renderscript_ops/utils/android_utils.h"
+// #include "tensorflow/contrib/android_renderscript_ops/jni/rsMatmul.h"
+// #include "tensorflow/contrib/android_renderscript_ops/utils/android_utils.h"
 // renderscript support
 
 
