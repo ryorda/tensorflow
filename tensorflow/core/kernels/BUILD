@@ -4882,8 +4882,8 @@ cc_library(
         "@protobuf_archive//:protobuf",
 
         # renderscript support
-        # "//tensorflow/contrib/android_renderscript_ops:android_rs_ops_utils",
-        # "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
+        "//tensorflow/contrib/android_renderscript_ops:android_rs_ops_utils",
+        "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
         # renderscript support
     ],
     alwayslink = 1,
