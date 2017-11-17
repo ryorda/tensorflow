@@ -50,6 +50,11 @@ limitations under the License.
 #include "tensorflow/core/platform/stream_executor.h"
 #endif  // GOOGLE_CUDA
 
+// ### LOGGING
+#include <fstream>
+#include <time.h>
+// ### END LOGGING
+
 namespace tensorflow {
 
 typedef Eigen::ThreadPoolDevice CPUDevice;
@@ -384,8 +389,19 @@ class Conv2DOp : public BinaryOp<T> {
       return;
     }
 
+    //////////////////////// renderscript support
+   
+    timespec start, finish;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+  
     launcher_(context, use_cudnn_, cudnn_use_autotune_, input, filter,
               stride_rows, stride_cols, padding_, output, data_format_);
+  
+    clock_gettime(CLOCK_MONOTONIC, &finish);
+    float conv_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    LOG(INFO) << "ConvTime = " << conv_time << "\n";
+
+    
   }
 
  private:

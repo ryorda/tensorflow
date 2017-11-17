@@ -90,6 +90,7 @@ class GraphDefBuilderWrapper {
   // `*output` contains a pointer to the output `Node`. It is guaranteed to be
   // non-null if the method returns with an OK status.
   // The returned Node pointer is owned by the backing Graph of GraphDefBuilder.
+  // TODO(shivaniagrawal): Consider changing to gtl::ArraySlice?
   template <typename T>
   Status AddVector(const std::vector<T>& val, Node** output) {
     Tensor val_t = Tensor(DataTypeToEnum<T>::v(),
@@ -306,26 +307,13 @@ class IteratorBase {
 
   // Saves the state of this iterator.
   virtual Status Save(IteratorStateWriter* writer) {
-    if (is_exhausted_) {
-      LOG(INFO) << "Iterator exhausted.";
-      return writer->WriteScalar(kIteratorExhausted, kIteratorExhausted);
-    } else {
-      return SaveInternal(writer);
-    }
+    return SaveInternal(writer);
   }
 
   // Restores the state of this iterator.
   virtual Status Restore(OpKernelContext* ctx, IteratorStateReader* reader) {
-    if (reader->Contains(kIteratorExhausted)) {
-      LOG(INFO) << "Iterator exhausted. Nothing to restore.";
-      is_exhausted_ = true;
-      return Status::OK();
-    } else {
-      return RestoreInternal(ctx, reader);
-    }
+    return RestoreInternal(ctx, reader);
   }
-
-  static const char kIteratorExhausted[];
 
  protected:
   // This is needed so that sub-classes of IteratorBase can call
@@ -354,8 +342,6 @@ class IteratorBase {
                                  IteratorStateReader* reader) {
     return errors::Unimplemented("RestoreInternal");
   }
-
-  bool is_exhausted_ = false;  // Whether the iterator has been exhausted.
 };
 
 // Represents a (potentially infinite) range of outputs, where each
@@ -491,10 +477,6 @@ class DatasetIterator : public IteratorBase {
   Status GetNext(IteratorContext* ctx, std::vector<Tensor>* out_tensors,
                  bool* end_of_sequence) final {
     port::Tracing::TraceMe activity(params_.prefix);
-    if (is_exhausted_) {
-      *end_of_sequence = true;
-      return Status::OK();
-    }
     return GetNextInternal(ctx, out_tensors, end_of_sequence);
   }
 

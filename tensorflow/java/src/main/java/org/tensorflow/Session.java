@@ -72,6 +72,8 @@ public final class Session implements AutoCloseable {
     } finally {
       r.close();
     }
+
+    this.helperClass = new Helper(nativeHandle);
   }
 
   /** Wrap an existing session with the associated {@link Graph}. */
@@ -79,6 +81,7 @@ public final class Session implements AutoCloseable {
     graph = g;
     this.nativeHandle = nativeHandle;
     graphRef = g.ref();
+    this.helperClass = new Helper(nativeHandle);
   }
 
   /**
@@ -414,6 +417,11 @@ public final class Session implements AutoCloseable {
   private final Object nativeHandleLock = new Object();
   private long nativeHandle;
   private int numActiveRuns;
+  private Helper helperClass;
+
+  public Helper getHelperClass(){
+    return helperClass;
+  }
 
   // TODO(ashankar): Remove after TensorFlow 1.2 has been released with allocate2().
   private static native long allocate(long graphHandle);

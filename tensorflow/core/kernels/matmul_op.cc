@@ -30,6 +30,13 @@ limitations under the License.
 #include "tensorflow/core/platform/stream_executor.h"
 #endif  // GOOGLE_CUDA
 
+// ### LOGGING
+#include <fstream>
+#include <time.h>
+// ### END LOGGING
+
+
+
 namespace tensorflow {
 
 typedef Eigen::ThreadPoolDevice CPUDevice;
@@ -493,8 +500,17 @@ class MatMulOp : public OpKernel {
       return;
     }
 
+
+    timespec start, finish;
+    clock_gettime(CLOCK_MONOTONIC, &start);
+
     LaunchMatMul<Device, T, USE_CUBLAS>::launch(
         ctx, a, b, dim_pair, &algorithms_, use_autotune_, out);
+
+    clock_gettime(CLOCK_MONOTONIC, &finish);
+    float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    
+    LOG(INFO)  << "Matmul consume time: " << (matmul_time) << " sec";
   }
 
  private:

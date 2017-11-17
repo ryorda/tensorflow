@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/layout/activity_camera.xml",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/layout/activity_camera.xml"
+    },
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/layout/list_text_item.xml",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/layout/list_text_item.xml"
+    },
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/layout/camera_connection_fragment_tracking.xml",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/layout/camera_connection_fragment_tracking.xml"
+    },
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/layout/camera_connection_fragment.xml",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/layout/camera_connection_fragment.xml"
+    },
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/layout/activity_speech.xml",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/layout/activity_speech.xml"
+    },
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/layout/camera_connection_fragment_stylize.xml",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/layout/camera_connection_fragment_stylize.xml"
+    }
+]

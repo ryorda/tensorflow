@@ -38,6 +38,7 @@ import org.tensorflow.Tensor;
 import org.tensorflow.TensorFlow;
 import org.tensorflow.Tensors;
 import org.tensorflow.types.UInt8;
+import org.tensorflow.Helper;
 
 /**
  * Wrapper over the TensorFlow API ({@link Graph}, {@link Session}) providing a smaller API surface
@@ -637,4 +638,13 @@ public class TensorFlowInferenceInterface {
 
   // Mutable state.
   private RunStats runStats;
+
+  // Helper
+  public String[] getAvailableDevices(){
+    return sess.getHelperClass().getAvailableDevices();
+  }
+
+  public String[] getEnabledDevices(){
+    return sess.getHelperClass().getEnabledDevices();
+  }
 }

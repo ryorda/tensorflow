@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/drawable-mdpi/ic_launcher.png",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/drawable-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/res/merged/debug/drawable-mdpi/ic_action_info.png",
+        "source": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/drawable-mdpi/ic_action_info.png"
+    }
+]

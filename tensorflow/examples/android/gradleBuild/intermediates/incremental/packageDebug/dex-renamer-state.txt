@@ -1,0 +1,7 @@
+#Fri Sep 15 10:46:05 WIB 2017
+base.0=/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_24bfb9659e0456e1a8e057ed9c4fc2d95fe999bf
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_e646a954ab9ed7aa9223a88e1435193169fe15b0/classes.dex
+base.1=/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_e646a954ab9ed7aa9223a88e1435193169fe15b0
+file.0=/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_24bfb9659e0456e1a8e057ed9c4fc2d95fe999bf/classes.dex

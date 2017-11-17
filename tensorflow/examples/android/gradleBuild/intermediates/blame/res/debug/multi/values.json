@@ -1,0 +1,448 @@
+[
+    {
+        "outputFile": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/gradleBuild/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 54,
+                    "endOffset": 105
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/colors.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 659,
+                        "endColumn": 54,
+                        "endOffset": 709
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 295,
+                    "endColumn": 69,
+                    "endOffset": 360
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 972,
+                        "endColumn": 69,
+                        "endOffset": 1037
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 365,
+                    "endColumn": 42,
+                    "endOffset": 403
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 893,
+                        "endColumn": 42,
+                        "endOffset": 931
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 408,
+                    "endColumn": 43,
+                    "endOffset": 447
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 4,
+                        "startOffset": 849,
+                        "endColumn": 43,
+                        "endOffset": 888
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 452,
+                    "endColumn": 44,
+                    "endOffset": 492
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 804,
+                        "endColumn": 44,
+                        "endOffset": 844
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 497,
+                    "endColumn": 42,
+                    "endOffset": 535
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 761,
+                        "endColumn": 42,
+                        "endOffset": 799
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 540,
+                    "endColumn": 41,
+                    "endOffset": 577
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 719,
+                        "endColumn": 41,
+                        "endOffset": 756
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 582,
+                    "endColumn": 67,
+                    "endOffset": 645
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-dimens.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 1042,
+                        "endColumn": 67,
+                        "endOffset": 1105
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 650,
+                    "endColumn": 68,
+                    "endOffset": 714
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/base-strings.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 713,
+                        "endColumn": 68,
+                        "endOffset": 777
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 719,
+                    "endColumn": 61,
+                    "endOffset": 776
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/base-strings.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 782,
+                        "endColumn": 61,
+                        "endOffset": 839
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 781,
+                    "endColumn": 58,
+                    "endOffset": 835
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/base-strings.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 905,
+                        "endColumn": 58,
+                        "endOffset": 959
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 840,
+                    "endColumn": 60,
+                    "endOffset": 896
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/base-strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 844,
+                        "endColumn": 60,
+                        "endOffset": 900
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 901,
+                    "endColumn": 52,
+                    "endOffset": 949
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/base-strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 660,
+                        "endColumn": 52,
+                        "endOffset": 708
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 954,
+                    "endColumn": 82,
+                    "endOffset": 1032
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 792,
+                        "endColumn": 82,
+                        "endOffset": 870
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1037,
+                    "endColumn": 49,
+                    "endOffset": 1082
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/strings.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 658,
+                        "endColumn": 49,
+                        "endOffset": 703
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1087,
+                    "endColumn": 83,
+                    "endOffset": 1166
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/strings.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 708,
+                        "endColumn": 83,
+                        "endOffset": 787
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1171,
+                    "endColumn": 50,
+                    "endOffset": 1217
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-styles.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 781,
+                        "endColumn": 51,
+                        "endOffset": 828
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1222,
+                    "endColumn": 94,
+                    "endOffset": 1312
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/styles.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 658,
+                        "endColumn": 95,
+                        "endOffset": 749
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1317,
+                    "endColumn": 59,
+                    "endOffset": 1372
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-styles.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 664,
+                        "endColumn": 60,
+                        "endOffset": 720
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1377,
+                    "endColumn": 52,
+                    "endOffset": 1425
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-styles.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 726,
+                        "endColumn": 53,
+                        "endOffset": 775
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 1430,
+                    "endColumn": 26,
+                    "endOffset": 1452
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-styles.xml",
+                    "position": {
+                        "startLine": 27,
+                        "startColumn": 4,
+                        "startOffset": 862,
+                        "endColumn": 27,
+                        "endOffset": 885
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 1457,
+                    "endLine": 27,
+                    "endColumn": 12,
+                    "endOffset": 1648
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-styles.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 4,
+                        "startOffset": 891,
+                        "endLine": 32,
+                        "endColumn": 12,
+                        "endOffset": 1082
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 1653,
+                    "endLine": 33,
+                    "endColumn": 12,
+                    "endOffset": 1926
+                },
+                "from": {
+                    "file": "/home/ryorda/ta/tutorial/tensorflow-lite/tensorflow/tensorflow/examples/android/res/values/template-styles.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 1088,
+                        "endLine": 39,
+                        "endColumn": 12,
+                        "endOffset": 1361
+                    }
+                }
+            }
+        ]
+    }
+]
