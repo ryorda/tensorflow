@@ -25,7 +25,7 @@ android_sdk_repository(
     # SDK manager as it updates periodically.
     build_tools_version = "26.0.1",
     # Replace with path to Android SDK on your system
-    path = "/home/gemastik/Downloads/tools",
+    path = "/home/gemastik/Downloads/android-sdk",
 )
 
 android_ndk_repository(
