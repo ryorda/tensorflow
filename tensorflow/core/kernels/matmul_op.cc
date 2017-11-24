@@ -508,15 +508,15 @@ class MatMulOp : public OpKernel {
     timespec start, finish;
     clock_gettime(CLOCK_MONOTONIC, &start);
 
-    // LaunchMatMul<Device, T, USE_CUBLAS>::launch(
-    //     ctx, a, b, dim_pair, &algorithms_, use_autotune_, out);
+    LaunchMatMul<Device, T, USE_CUBLAS>::launch(
+        ctx, a, b, dim_pair, &algorithms_, use_autotune_, out);
 
     
     //////////////////////// renderscript support
-    androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<char*>(a.tensor_data().data())), 0, 
-                                  static_cast<void*>(const_cast<char*>(b.tensor_data().data())), 0, 
-                                  static_cast<void*>(const_cast<char*>(out->tensor_data().data())), 
-                                  a.dim_size(0), b.dim_size(1), a.dim_size(1), 1, 0);
+    // androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<char*>(a.tensor_data().data())), 0, 
+    //                               static_cast<void*>(const_cast<char*>(b.tensor_data().data())), 0, 
+    //                               static_cast<void*>(const_cast<char*>(out->tensor_data().data())), 
+    //                               a.dim_size(0), b.dim_size(1), a.dim_size(1), 1, 0);
     //////////////////////// renderscript support
 
     clock_gettime(CLOCK_MONOTONIC, &finish);
