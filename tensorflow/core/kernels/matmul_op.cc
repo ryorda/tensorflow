@@ -522,7 +522,7 @@ class MatMulOp : public OpKernel {
     clock_gettime(CLOCK_MONOTONIC, &finish);
     float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
     
-    LOG(INFO)  << "Matmul consume time: " << (matmul_time) << " sec";
+    LOG(INFO)  << "Matmul " <<  a.dim_size(0) << " x " << a.dim_size(1) << "x" << b.dim_size(1) << ", consume time: " << (matmul_time) << " sec";
   }
 
  private:
