@@ -25,12 +25,12 @@ android_sdk_repository(
     # SDK manager as it updates periodically.
     build_tools_version = "26.0.1",
     # Replace with path to Android SDK on your system
-    path = "/home/gemastik/Downloads/android-sdk",
+    path = "/root/Android/Sdk",
 )
 
 android_ndk_repository(
     name="androidndk",
-    path="/home/gemastik/Downloads/android-ndk-r14b",
+    path="/home/ryorda/Downloads/android-ndk-r14b",
     # This needs to be 14 or higher to compile TensorFlow.
     # Please specify API level to >= 21 to build for 64-bit
     # archtectures or the Android NDK will automatically select biggest
