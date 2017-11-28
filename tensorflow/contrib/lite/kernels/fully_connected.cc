@@ -169,7 +169,7 @@ TfLiteStatus EvalPie(TfLiteContext* context, TfLiteNode* node,
   clock_gettime(CLOCK_MONOTONIC, &finish);
   float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
   
-  LOG(INFO)  << "Matmul " <<  a.dim_size(0) << " x " << a.dim_size(1) << "x" << b.dim_size(1) << ", consume time: " << (matmul_time) << " sec";
+  LOG(INFO)  << "Matmul " <<  batch_size << " x " << num_units << " x " << input_size << " , consume time: " << (matmul_time) << " sec";
   
   // Apply activation function
   tensor_utils::ApplyActivationToVector(output->data.f, batch_size * num_units,
