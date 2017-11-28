@@ -151,11 +151,26 @@ TfLiteStatus EvalPie(TfLiteContext* context, TfLiteNode* node,
     tensor_utils::ZeroVector(output->data.f, batch_size * num_units);
   }
 
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+  
+  // //////////////////////// renderscript support
+  // androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<char*>(a.tensor_data().data())), 0, 
+  //                               static_cast<void*>(const_cast<char*>(b.tensor_data().data())), 0, 
+  //                               static_cast<void*>(const_cast<char*>(out->tensor_data().data())), 
+  //                               a.dim_size(0), b.dim_size(1), a.dim_size(1), 1, 0);
+  // //////////////////////// renderscript support
+
   // Compute output += weight * input
   tensor_utils::MatrixBatchVectorMultiplyAccumulate(
       filter->data.f, num_units, input_size, input->data.f, batch_size,
       output->data.f, /*result_stride=*/1);
 
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  LOG(INFO)  << "Matmul " <<  a.dim_size(0) << " x " << a.dim_size(1) << "x" << b.dim_size(1) << ", consume time: " << (matmul_time) << " sec";
+  
   // Apply activation function
   tensor_utils::ApplyActivationToVector(output->data.f, batch_size * num_units,
                                         params->activation, output->data.f);
