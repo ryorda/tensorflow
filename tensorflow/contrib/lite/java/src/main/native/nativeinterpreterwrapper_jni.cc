@@ -14,6 +14,7 @@ limitations under the License.
 ==============================================================================*/
 
 #include "tensorflow/contrib/lite/java/src/main/native/nativeinterpreterwrapper_jni.h"
+#include <android/log.h>
 
 namespace {
 
@@ -352,6 +353,9 @@ Java_org_tensorflow_lite_NativeInterpreterWrapper_run(
   status = setInputs(env, interpreter, input_size, data_types, nums_of_bytes,
                      values);
   if (status != kTfLiteOk) return nullptr;
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "test" );
+  
   // runs inference
   if (interpreter->Invoke() != kTfLiteOk) {
     throwException(env, kIllegalArgumentException,

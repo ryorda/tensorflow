@@ -124,7 +124,7 @@ cc_library(
         "//tensorflow/contrib/lite/kernels/internal:reference_base",
         "//tensorflow/contrib/lite/kernels/internal:round",
         "//tensorflow/contrib/lite/kernels/internal:tensor_utils",
-        "@farmhash_archive//:farmhash",
+        "@farmhash_archive//:farmhash"
     ],
 )
 

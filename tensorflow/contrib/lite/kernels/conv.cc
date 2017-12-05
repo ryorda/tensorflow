@@ -33,6 +33,8 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/op_macros.h"
 #include "tensorflow/contrib/lite/kernels/padding.h"
 
+#include <android/log.h>
+
 namespace tflite {
 namespace ops {
 namespace builtin {
@@ -376,6 +378,10 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
   // TODO(aselle): Consider whether float conv and quantized conv should be
   // separate ops to avoid dispatch overhead here.
+
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   switch (input->type) {  // Already know in/outtypes are same.
     case kTfLiteFloat32:
       EvalFloat<kernel_type>(context, node, params, data, input, filter, bias,
@@ -389,6 +395,13 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       context->ReportError(context, "Type not currently supported.");
       return kTfLiteError;
   }
+  
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float conv_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv %d x %d x %d , consume time : %f sec", input->dims->data[0], input->dims->data[1], filter->dims->data[0], conv_time );
+  
+
   return kTfLiteOk;
 }
 

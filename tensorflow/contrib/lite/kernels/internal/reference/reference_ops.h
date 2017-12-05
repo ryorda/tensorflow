@@ -30,6 +30,8 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/internal/round.h"
 #include "tensorflow/contrib/lite/kernels/internal/types.h"
 
+#include <android/log.h>
+
 namespace tflite {
 namespace reference_ops {
 
@@ -214,6 +216,9 @@ inline void Conv(const float* input_data, const Dims<4>& input_dims,
       }
     }
   }
+
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedConv float32" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -311,6 +316,9 @@ inline void Conv(const uint8* input_data, const Dims<4>& input_dims,
       }
     }
   }
+
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedConv uint8" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -475,6 +483,9 @@ inline void FullyConnected(const float* input_data, const Dims<4>& input_dims,
           total + bias_value, output_activation_min, output_activation_max);
     }
   }
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedFullyConnected float32" );
+  
 }
 
 // legacy, for compatibility with old checked-in code
@@ -531,6 +542,8 @@ inline void FullyConnected(const uint8* input_data, const Dims<4>& input_dims,
       output_data[out_c + output_depth * b] = static_cast<uint8>(acc);
     }
   }
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedFullyConnected uint8" );
 }
 
 // legacy, for compatibility with old checked-in code

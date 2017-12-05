@@ -33,6 +33,8 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/internal/round.h"
 #include "tensorflow/contrib/lite/kernels/internal/types.h"
 
+#include <android/log.h>
+
 namespace tflite {
 namespace optimized_ops {
 
@@ -352,6 +354,9 @@ inline void FullyConnected(const float* input_data, const Dims<4>& input_dims,
   AddBiasAndEvalActivationFunction(bias_data, bias_dims, output_data,
                                    output_dims, output_activation_min,
                                    output_activation_max);
+
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedFullyConnected float32" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -525,6 +530,8 @@ inline void FullyConnectedAsGEMV(
                   vreinterpret_u32_u8(res8), 0);
     output_ptr += kPeel;
   }
+
+
 }
 #endif  // USE_NEON
 
@@ -608,6 +615,8 @@ inline void FullyConnected(const uint8* input_data, const Dims<4>& input_dims,
                                    gemmlowp::L8R8WithLhsNonzeroBitDepthParams>(
       gemm_context, filter_matrix, input_matrix, &output_matrix, filter_offset,
       input_offset, output_pipeline);
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedFullyConnected uint8" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -803,6 +812,8 @@ inline void Conv(const float* input_data, const Dims<4>& input_dims,
   AddBiasAndEvalActivationFunction(bias_data, bias_dims, output_data,
                                    output_dims, output_activation_min,
                                    output_activation_max);
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedConv float32" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -903,6 +914,8 @@ inline void Conv(const uint8* input_data, const Dims<4>& input_dims,
                                    gemmlowp::L8R8WithLhsNonzeroBitDepthParams>(
       gemm_context, filter_matrix, input_matrix, &output_matrix, filter_offset,
       input_offset, output_pipeline);
+
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedConv uint8" );
 }
 
 // legacy, for compatibility with old checked-in code

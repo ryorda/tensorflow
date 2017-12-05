@@ -33,6 +33,12 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/kernel_util.h"
 #include "tensorflow/contrib/lite/kernels/op_macros.h"
 
+// logging
+#include <fstream>
+#include <time.h>
+#include <android/log.h>
+//
+
 namespace tflite {
 namespace ops {
 namespace builtin {
@@ -151,25 +157,10 @@ TfLiteStatus EvalPie(TfLiteContext* context, TfLiteNode* node,
     tensor_utils::ZeroVector(output->data.f, batch_size * num_units);
   }
 
-  timespec start, finish;
-  clock_gettime(CLOCK_MONOTONIC, &start);
-  
-  // //////////////////////// renderscript support
-  // androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<char*>(a.tensor_data().data())), 0, 
-  //                               static_cast<void*>(const_cast<char*>(b.tensor_data().data())), 0, 
-  //                               static_cast<void*>(const_cast<char*>(out->tensor_data().data())), 
-  //                               a.dim_size(0), b.dim_size(1), a.dim_size(1), 1, 0);
-  // //////////////////////// renderscript support
-
   // Compute output += weight * input
   tensor_utils::MatrixBatchVectorMultiplyAccumulate(
       filter->data.f, num_units, input_size, input->data.f, batch_size,
       output->data.f, /*result_stride=*/1);
-
-  clock_gettime(CLOCK_MONOTONIC, &finish);
-  float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
-  
-  LOG(INFO)  << "Matmul " <<  batch_size << " x " << num_units << " x " << input_size << " , consume time: " << (matmul_time) << " sec";
   
   // Apply activation function
   tensor_utils::ApplyActivationToVector(output->data.f, batch_size * num_units,
@@ -236,10 +227,13 @@ TfLiteStatus EvalFloat(TfLiteContext* context, TfLiteNode* node,
                        output_activation_min, output_activation_max,        \
                        GetTensorData<float>(output), GetTensorDims(output))
   if (kernel_type == kReference) {
+    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kReference");
     TF_LITE_FULLY_CONNECTED(reference_ops);
   } else if (kernel_type == kPie) {
+    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kPie");
     return EvalPie(context, node, params, data, input, filter, bias, output);
   } else {
+    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected optimized");
     TF_LITE_FULLY_CONNECTED(optimized_ops);
   }
 #undef TF_LITE_FULLY_CONNECTED
@@ -260,18 +254,36 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   TfLiteTensor* bias = GetOptionalInputTensor(context, node, kBiasTensor);
   TfLiteTensor* output = GetOutput(context, node, kOutputTensor);
 
+
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
+
+  TfLiteStatus status;
   switch (input->type) {  // Already know in/out types are same.
     case kTfLiteFloat32:
-      return EvalFloat<kernel_type>(context, node, params, data, input, filter,
+      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kfloat32");
+
+      status = EvalFloat<kernel_type>(context, node, params, data, input, filter,
                                     bias, output);
+      break;
     case kTfLiteUInt8:
-      return EvalQuantized<kernel_type>(context, node, params, data, input,
+      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kuint8");
+      status = EvalQuantized<kernel_type>(context, node, params, data, input,
                                         filter, bias, output);
+      break;
     default:
       context->ReportError(context, "Type not currently supported.");
-      return kTfLiteError;
+      status = kTfLiteError;
+      break;
   }
-  return kTfLiteOk;
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected %d x %d x %d , consume time : %f sec", filter->dims->data[0], filter->dims->data[1], input->dims->data[0], matmul_time );
+  
+  return status;
 }
 
 }  // namespace fully_connected

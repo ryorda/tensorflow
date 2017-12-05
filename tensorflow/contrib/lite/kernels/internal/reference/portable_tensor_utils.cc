@@ -18,6 +18,13 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/activation_functor.h"
 #include "tensorflow/contrib/lite/kernels/op_macros.h"
 
+/// logging
+#include <android/log.h>
+#include <fstream>
+#include <time.h>
+/// end of logging
+
+
 namespace tflite {
 namespace tensor_utils {
 
@@ -32,6 +39,11 @@ void PortableMatrixBatchVectorMultiplyAccumulate(const float* matrix,
                                                  const float* vector,
                                                  int n_batch, float* result,
                                                  int result_stride) {
+  
+
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   float* result_in_batch = result;
   for (int b = 0; b < n_batch; b++) {
     const float* matrix_ptr = matrix;
@@ -43,29 +55,59 @@ void PortableMatrixBatchVectorMultiplyAccumulate(const float* matrix,
       result_in_batch += result_stride;
     }
   }
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " PortableMatrixBatchVector %d x %d x %d , consume time : %f sec", m_rows, m_cols, n_batch, delta_time );
+  
 }
 
 void PortableVectorVectorCwiseProduct(const float* vector1,
                                       const float* vector2, int v_size,
                                       float* result) {
+  
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   for (int v = 0; v < v_size; v++) {
     *result++ = *vector1++ * *vector2++;
   }
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " PortableVectorVector %d , consume time : %f sec", v_size, delta_time );
+  
 }
 
 float PortableVectorVectorDotProduct(const float* vector1, const float* vector2,
                                      int v_size) {
+  
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   float result = 0.0;
   for (int v = 0; v < v_size; v++) {
     result += *vector1++ * *vector2++;
   }
   return result;
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " PortableVectorVectorDot %d , consume time : %f sec", v_size, delta_time );
+  
 }
 
 void PortableBatchVectorBatchVectorDotProduct(const float* vector1,
                                               const float* vector2, int v_size,
                                               int n_batch, float* result,
                                               int result_stride) {
+  
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   float* result_ptr = result;
   const float* vector1_ptr = vector1;
   const float* vector2_ptr = vector2;
@@ -76,14 +118,30 @@ void PortableBatchVectorBatchVectorDotProduct(const float* vector1,
     vector2_ptr += v_size;
     result_ptr += result_stride;
   }
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " PortableBatchVectorBatchVectorDot %d : %d , consume time : %f sec", n_batch, v_size, delta_time );
+  
 }
 
 void PortableVectorVectorCwiseProductAccumulate(const float* vector1,
                                                 const float* vector2,
                                                 int v_size, float* result) {
+  
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   for (int v = 0; v < v_size; v++) {
     *result++ += *vector1++ * *vector2++;
   }
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " PortableVectorVectorAccum %d , consume time : %f sec", v_size, delta_time );
+  
 }
 
 void PortableVectorBatchVectorCwiseProductAccumulate(const float* vector,
@@ -91,11 +149,21 @@ void PortableVectorBatchVectorCwiseProductAccumulate(const float* vector,
                                                      const float* batch_vector,
                                                      int n_batch,
                                                      float* result) {
+  
+  timespec start, finish;
+  clock_gettime(CLOCK_MONOTONIC, &start);
+
   for (int b = 0; b < n_batch; b++) {
     for (int v = 0; v < v_size; v++) {
       *result++ += vector[v] * *batch_vector++;
     }
   }
+
+  clock_gettime(CLOCK_MONOTONIC, &finish);
+  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  
+  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " PortableVectorBatchVectorAccum %d : %d , consume time : %f sec", n_batch, v_size, delta_time );
+  
 }
 
 void PortableVectorBatchVectorAssign(const float* vector, int v_size,

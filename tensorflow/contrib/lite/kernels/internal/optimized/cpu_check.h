@@ -48,6 +48,14 @@ inline bool TestCPUFeatureNeon() {
 
 #endif
 
+inline bool TestIsAndroid(){
+#ifdef __ANDROID__
+  return true;
+#else
+  return false;
+#endif
+}
+
 }  // namespace tflite
 
 // NEON_OR_PORTABLE(SomeFunc, arcs) calls NeonSomeFunc(args) if Neon is both
@@ -56,7 +64,16 @@ inline bool TestCPUFeatureNeon() {
 #ifdef __ARM_ARCH_5TE__
 // Neon isn't available at all on ARMv5.
 #define NEON_OR_PORTABLE(funcname, ...) Portable##funcname(__VA_ARGS__)
+
+#define NEON_OR_PORTABLE_OR_RS(funcname, ...) Portable##funcname(__VA_ARGS__)
+
 #else
+
+#define NEON_OR_PORTABLE_OR_RS(funcname, ...)              \
+  TestIsAndroid() ? RenderScript##funcname(__VA_ARGS__) \
+                  : ( TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \
+                                           : Portable##funcname(__VA_ARGS__) )
+
 #define NEON_OR_PORTABLE(funcname, ...)              \
   TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \
                        : Portable##funcname(__VA_ARGS__)
