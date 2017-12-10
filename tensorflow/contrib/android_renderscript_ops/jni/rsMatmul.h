@@ -17,8 +17,8 @@ static sp<ScriptIntrinsicBLAS> sc = nullptr; //ScriptIntrinsicBLAS::create(andro
 //static const char* cachePath = "/data/user/0/org.tensorflow.demo/cache";
 static int tot_matmul_cnt = 2;
 static int count = 0;
-static sp<Allocation> last_gemv_alloc[8];
-static bool last_gemv_alloc_visit[8];
+static sp<Allocation> last_gemv_alloc[16];
+static bool last_gemv_alloc_visit[16];
 
 sp<ScriptIntrinsicBLAS>& initSC()
 {

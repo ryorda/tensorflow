@@ -54,13 +54,24 @@ Java_org_tensorflow_lite_Custom_multiplicationMatrixTest(JNIEnv*, jclass);
 JNIEXPORT void JNICALL
 Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv*, jclass);
 
+
 /*
  *  Class:     org_tensorflow_lite_Custom
- *  Method:    matrixVectorOpenMPTest
+ *  Method:    matrixVectorGLMTest
  *  Signature: ()Ljava/lang/String;
  */
-// JNIEXPORT void JNICALL
-// Java_org_tensorflow_lite_Custom_matrixVectorOpenMPTest(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorGLMTest(JNIEnv*, jclass);
+
+
+/*
+ *  Class:     org_tensorflow_lite_Custom
+ *  Method:    matrixVectorNaiveTest
+ *  Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv*, jclass);
+
 
 #ifdef __cplusplus
 }  // extern "C"

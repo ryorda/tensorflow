@@ -34,12 +34,13 @@ cc_library(
     ],
     copts = tflite_copts(),
     includes = select({
-        "//tensorflow:android": [],
-        "//conditions:default": ["."],
+        "//tensorflow:android": ["includes/"],
+        "//conditions:default": [".", "includes/"],
     }),
     linkopts = [
         "-lm",
         "-ldl",
+        "-lGLESv2",
     ],
     deps = [
         "//tensorflow/contrib/lite:context",

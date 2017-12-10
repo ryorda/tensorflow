@@ -256,12 +256,15 @@ cc_library(
     name = "neon_tensor_utils",
     srcs = [
         "optimized/neon_tensor_utils.cc",
-        "optimized/rs_tensor_utils.cc",
+        "optimized/glm_tensor_utils.cc",
     ],
     hdrs = [
         "optimized/neon_tensor_utils.h",
-        "optimized/rs_tensor_utils.h",
+        "optimized/glm_tensor_utils.h",
         "optimized/tensor_utils_impl.h",
+    ],
+    includes = [
+        "optimized/includes/"
     ],
     copts = NEON_FLAGS_IF_APPLICABLE,
     deps = [

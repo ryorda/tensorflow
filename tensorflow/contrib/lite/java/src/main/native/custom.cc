@@ -27,7 +27,15 @@ limitations under the License.
 #include "tensorflow/contrib/android_renderscript_ops/jni/rsMatmul.h"
 
 #include <vector>
-// #include <omp.h>
+
+// opengl support
+#include <GLES2/gl2.h>
+#include <glm/glm.hpp>
+#include <glm/vec4.hpp> // glm::vec4
+#include <glm/mat4x4.hpp> // glm::mat4x4
+#include <glm/gtc/type_ptr.hpp>
+// opengl support
+
 
 static sp<RS> mRS = new RS();
 
@@ -207,7 +215,13 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
         mRS->init(kCachePath);
     }
 
+	// test cache
+
+	int tc = 0;
 	for (int size : {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}){
+		tc++;
+		// for (int i = 0; i < 3; i++){
+
 
 		float matrix[size * size], matrix2[size], result[size];
 
@@ -218,7 +232,6 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
 		// allocation time
 		timespec start, finish;
 		clock_gettime(CLOCK_MONOTONIC, &start);
-
 
 
 		androidrs::matmul::rsMatmul_sgemv(
@@ -228,111 +241,152 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
             size, size, 1, 0, 0
             );
 
-		// androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<float*>(matrix)), 0,
-		// 	static_cast<void*>(const_cast<float*>(matrix2)), 0, 
-		// 	static_cast<void*>(const_cast<float*>(result)), size, 1, size, 1, 0);
-
 
 		clock_gettime(CLOCK_MONOTONIC, &finish);
 		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
 		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " MatrixVector 2D %d , consume time : %f sec", size, delta_time );
 
+		// }
 	}  
 
-	// test cache
-	for (int i = 0; i < 4	; i++){
+}
 
-		int size = 1024;
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorGLMTest(JNIEnv* env, jclass /*clazz*/) {
+	
+	for (int size : {4, 8, 16, 32, 64, 128, 256, 512, 1024}){
 
+		// float matrix[size * size], matrix2[size], result[size];
 
-		float matrix[size * size], matrix2[size], result[size];
+		float *matrix = (float *)malloc(size * size * sizeof(float *));
+		float *matrix2 = (float *)malloc(size * sizeof(float *));
+		float *result = (float *)malloc(size * sizeof(float *));
 
 		for (int i = 0; i < size; i++)
 			for (int j = 0; j < size; j++)
-				matrix[i * size + j] = 255, matrix2[i] = 255;
-		
+				matrix[i * size + j] = 1, matrix2[i] = 1;
+
+
+		// allocation time
+		timespec start, finish;
+		clock_gettime(CLOCK_MONOTONIC, &start);
+
+		glm::mat4x4 lsh;
+		glm::vec4 rsh;
+		glm::vec4 res;
+		glm::vec4 res_total;
+
+		float* start_l0, *start_l1, *start_l2, *start_l3;
+		float* start_r;
+		int col = size;
+
+		// float copy = 0; 
+
+		for (int i = 0; i < size; i+= 4){
+			start_r = matrix2 + i;
+
+			// clock_gettime(CLOCK_MONOTONIC, &start);
+			rsh = glm::vec4( *(start_r), *(start_r+1), *(start_r+2), *(start_r+3)); 
+			// clock_gettime(CLOCK_MONOTONIC, &finish);
+			// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+			// copy += delta_time;
+
+			res_total = glm::vec4(0, 0, 0, 0);
+
+			for (int j = 0; j < col; j+=4){
+				start_l0 = matrix + j + i * col;
+				start_l1 = matrix + j + (i + 1) * col;
+				start_l2 = matrix + j + (i + 2) * col;
+				start_l3 = matrix + j + (i + 3) * col;
+			// clock_gettime(CLOCK_MONOTONIC, &start);
+				lsh = glm::mat4x4(
+						*(start_l0), *(start_l0 + 1), *(start_l0 + 2), *(start_l0 + 3),
+						*(start_l1), *(start_l1 + 1), *(start_l1 + 2), *(start_l1 + 3),
+						*(start_l2), *(start_l2 + 1), *(start_l2 + 2), *(start_l2 + 3),
+						*(start_l3), *(start_l3 + 1), *(start_l3 + 2), *(start_l3 + 3)
+					);
+			// clock_gettime(CLOCK_MONOTONIC, &finish);
+			// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+			// copy += delta_time;
+				res = lsh*rsh;
+				res_total = res_total + res;
+
+			}
+			
+			const float *pSource = (const float*)glm::value_ptr(res_total);
+
+			// cout << "res " << i << endl;
+			// cout << "value : " << *pSource << " " << *(pSource + 1) << " " << *(pSource + 2) << " " << *(pSource + 3) << endl;
+			*(result + i) = *pSource;
+			*(result + (i + 1)) = *(pSource + 1);
+			*(result + (i + 2)) = *(pSource + 2);
+			*(result + (i + 3)) = *(pSource + 3);
+		}
+
+		clock_gettime(CLOCK_MONOTONIC, &finish);
+		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+
+		bool isRight = true;
+		for (int i = 0; i < size; i++){
+			isRight = isRight && result[i] == size;
+		}
+		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " GLMMatrixVector 1D %d : %s , consume time : %f sec", size, (isRight ? "true" : "false"), delta_time );
+
+	}
+
+
+	return;
+}
+
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv* env, jclass /*clazz*/) {
+	
+	for (int size : {4, 8, 16, 32, 64, 128, 256, 512, 1024}){
+
+		// float matrix[size * size], matrix2[size], result[size];
+
+		float *matrix = (float *)malloc(size * size * sizeof(float *));
+		float *matrix2 = (float *)malloc(size * sizeof(float *));
+		float *result = (float *)malloc(size * sizeof(float *));
+
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++)
+				matrix[i * size + j] = 1, matrix2[i] = 1;
+
+
+		int result_stride = 1;
+		int n_batch = 1;
+		int m_cols = size;
+		int m_rows = size;
 		// allocation time
 		timespec start, finish;
 		clock_gettime(CLOCK_MONOTONIC, &start);
 
 
-		androidrs::matmul::rsMatmul_sgemv(
-			static_cast<void*>(const_cast<float*>(matrix2)), 1, 
-			static_cast<void*>(const_cast<float*>(matrix)), 
-			static_cast<void*>(const_cast<float*>(result)), 1, 
-            size, size, 1, 0, 1
-            );
-
-		// androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<float*>(matrix)), 0,
-		// 	static_cast<void*>(const_cast<float*>(matrix2)), 0, 
-		// 	static_cast<void*>(const_cast<float*>(result)), size, 1, size, 1, 0);
-
+		float* result_in_batch = result;
+		  for (int b = 0; b < n_batch; b++) {
+		    const float* matrix_ptr = matrix;
+		    for (int r = 0; r < m_rows; r++) {
+		      const float* vector_in_batch = matrix2 + b * m_cols;
+		      for (int c = 0; c < m_cols; c++) {
+		        *result_in_batch += *matrix_ptr++ * *vector_in_batch++;
+		      }
+		      result_in_batch += result_stride;
+		    }
+		  }
 
 		clock_gettime(CLOCK_MONOTONIC, &finish);
 		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " MatrixVector 2D %d , consume time : %f sec", size, delta_time );
+		bool isRight = true;
+		for (int i = 0; i < size; i++){
+			isRight = isRight && result[i] == size;
+		}
+		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " NaiveMatrixVector 1D %d : %s , consume time : %f sec", size, (isRight ? "true" : "false"), delta_time );
 
-	}  
+	}
 
+
+	return;
 }
-
-// JNIEXPORT void JNICALL
-// Java_org_tensorflow_lite_Custom_matrixVectorOpenMPTest(JNIEnv* env, jclass /*clazz*/) {
-
-
-// 	for (int size : {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}){
-
-// 		int	tid, nthreads, i, j, k, chunk;
-
-// 		chunk = 16;  
-// 		int NRA = size;
-// 		int NCA = size;
-// 		int NCB = 1;
-
-// 		float **a = (float **)malloc(size * sizeof(float *));
-// 		float **b = (float **)malloc(size * sizeof(float *));
-// 		float **c = (float **)malloc(size * sizeof(float *));
-// 	    for (int i=0; i<size; i++){
-// 	        a[i] = (float *)malloc(size * sizeof(float));
-// 	        b[i] = (float *)malloc(size * sizeof(float));
-// 	        c[i] = (float *)malloc(1 * sizeof(float));
-// 	    }
-
-// 		// float matrix[size * size], matrix2[size], result[size];
-
-// 		for (int i = 0; i < size; i++){	
-// 			b[i][1] = 255;
-// 			for (int j = 0; j < size; j++){
-// 				a[i][j] = 255;
-// 			}
-// 		}
-
-// 		// Spawn a parallel region explicitly scoping all variables
-// 		#pragma omp parallel shared(a,b,c,nthreads,chunk) private(tid,i,j,k)
-// 		  {
-// 		  tid = omp_get_thread_num();
-// 		  if (tid == 0)
-// 		    {
-// 		    nthreads = omp_get_num_threads();
-// 		    // printf("Starting matrix multiple example with %d threads\n",nthreads);
-// 		    // printf("Initializing matrices...\n");
-// 		    }
-
-// 		  /*** Do matrix multiply sharing iterations on outer loop ***/
-// 		  /*** Display who does which iterations for demonstration purposes ***/
-// 		  // printf("Thread %d starting matrix multiply...\n",tid);
-// 		  #pragma omp for schedule (static, chunk)
-// 		  for (i=0; i<NRA; i++)    
-// 		    {
-// 		    // printf("Thread=%d did row=%d\n",tid,i);
-// 		    for(j=0; j<NCB; j++)       
-// 		      for (k=0; k<NCA; k++)
-// 		        c[i][j] += a[i][k] * b[k][j];
-// 		    }
-// 		  }   /*** End of parallel region ***/
-
-// 		}
-
-// }

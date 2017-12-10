@@ -25,6 +25,7 @@ limitations under the License.
 #include <memory>
 #include <tuple>
 #include <type_traits>
+#include <android/log.h>
 
 #include "tensorflow/contrib/lite/builtin_op_data.h"
 #include "tensorflow/contrib/lite/kernels/internal/common.h"
@@ -134,6 +135,8 @@ class EigenTensorConvFunctor {
       ConstEigenMatrix filter(filter_data, input_depth, filter_count);
       MatMulConvFunctor<Eigen::ThreadPoolDevice, T>()(device, output, input,
                                                       filter, dim_pair);
+      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv 1x1 kernel");
+
     } else if (filter_height == input_height && filter_width == input_width &&
                pad_width == 0 && pad_height == 0) {
       // If the input data and filter have the same height/width,
@@ -147,6 +150,8 @@ class EigenTensorConvFunctor {
       ConstEigenMatrix filter(filter_data, k, filter_count);
       MatMulConvFunctor<Eigen::ThreadPoolDevice, T>()(device, output, input,
                                                       filter, dim_pair);
+      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv filter_height == input_height kernel");
+      
     } else {
       EigenTensor output(output_data, input_batches, output_height,
                          output_width, filter_count);
@@ -157,6 +162,8 @@ class EigenTensorConvFunctor {
       output.device(device) =
           Eigen::SpatialConvolution(input, filter, stride_cols, stride_rows,
                                     TfLitePadding2EigenPadding(padding));
+      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv else kernel");
+
     }
   }
 };

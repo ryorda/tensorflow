@@ -339,6 +339,8 @@ void EvalFloat(TfLiteContext* context, TfLiteNode* node,
         data->padding.height, output_activation_min, output_activation_max,
         GetTensorData<float>(output), GetTensorDims(output),
         GetTensorData<float>(im2col), GetTensorDims(im2col));
+    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv kReference");
+  
   } else {
     multithreaded_ops::Conv(
         GetTensorData<float>(input), GetTensorDims(input), filter_data,
@@ -348,6 +350,7 @@ void EvalFloat(TfLiteContext* context, TfLiteNode* node,
         output_activation_max, GetTensorData<float>(output),
         GetTensorDims(output), GetTensorData<float>(im2col),
         GetTensorDims(im2col));
+    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv multithreaded");
   }
 }
 
