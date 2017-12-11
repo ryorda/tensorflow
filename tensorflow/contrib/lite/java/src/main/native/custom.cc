@@ -27,7 +27,6 @@ limitations under the License.
 #include "tensorflow/contrib/android_renderscript_ops/jni/rsMatmul.h"
 
 #include <vector>
-// #include <omp.h>
 
 static sp<RS> mRS = new RS();
 
@@ -278,61 +277,54 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
 
 }
 
-// JNIEXPORT void JNICALL
-// Java_org_tensorflow_lite_Custom_matrixVectorOpenMPTest(JNIEnv* env, jclass /*clazz*/) {
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv* env, jclass /*clazz*/) {
+	
+	for (int size : {4, 8, 16, 32, 64, 128, 256, 512, 1024}){
+
+		// float matrix[size * size], matrix2[size], result[size];
+
+		float *matrix = (float *)malloc(size * size * sizeof(float *));
+		float *matrix2 = (float *)malloc(size * sizeof(float *));
+		float *result = (float *)malloc(size * sizeof(float *));
+
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++)
+				matrix[i * size + j] = 1, matrix2[i] = 1;
 
 
-// 	for (int size : {2, 4, 8, 16, 32, 64, 128, 256, 512, 1024}){
+		int result_stride = 1;
+		int n_batch = 1;
+		int m_cols = size;
+		int m_rows = size;
+		// allocation time
+		timespec start, finish;
+		clock_gettime(CLOCK_MONOTONIC, &start);
 
-// 		int	tid, nthreads, i, j, k, chunk;
 
-// 		chunk = 16;  
-// 		int NRA = size;
-// 		int NCA = size;
-// 		int NCB = 1;
+		float* result_in_batch = result;
+		  for (int b = 0; b < n_batch; b++) {
+		    const float* matrix_ptr = matrix;
+		    for (int r = 0; r < m_rows; r++) {
+		      const float* vector_in_batch = matrix2 + b * m_cols;
+		      for (int c = 0; c < m_cols; c++) {
+		        *result_in_batch += *matrix_ptr++ * *vector_in_batch++;
+		      }
+		      result_in_batch += result_stride;
+		    }
+		  }
 
-// 		float **a = (float **)malloc(size * sizeof(float *));
-// 		float **b = (float **)malloc(size * sizeof(float *));
-// 		float **c = (float **)malloc(size * sizeof(float *));
-// 	    for (int i=0; i<size; i++){
-// 	        a[i] = (float *)malloc(size * sizeof(float));
-// 	        b[i] = (float *)malloc(size * sizeof(float));
-// 	        c[i] = (float *)malloc(1 * sizeof(float));
-// 	    }
+		clock_gettime(CLOCK_MONOTONIC, &finish);
+		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-// 		// float matrix[size * size], matrix2[size], result[size];
+		bool isRight = true;
+		for (int i = 0; i < size; i++){
+			isRight = isRight && result[i] == size;
+		}
+		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " NaiveMatrixVector 1D %d : %s , consume time : %f sec", size, (isRight ? "true" : "false"), delta_time );
 
-// 		for (int i = 0; i < size; i++){	
-// 			b[i][1] = 255;
-// 			for (int j = 0; j < size; j++){
-// 				a[i][j] = 255;
-// 			}
-// 		}
+	}
 
-// 		// Spawn a parallel region explicitly scoping all variables
-// 		#pragma omp parallel shared(a,b,c,nthreads,chunk) private(tid,i,j,k)
-// 		  {
-// 		  tid = omp_get_thread_num();
-// 		  if (tid == 0)
-// 		    {
-// 		    nthreads = omp_get_num_threads();
-// 		    // printf("Starting matrix multiple example with %d threads\n",nthreads);
-// 		    // printf("Initializing matrices...\n");
-// 		    }
 
-// 		  /*** Do matrix multiply sharing iterations on outer loop ***/
-// 		  /*** Display who does which iterations for demonstration purposes ***/
-// 		  // printf("Thread %d starting matrix multiply...\n",tid);
-// 		  #pragma omp for schedule (static, chunk)
-// 		  for (i=0; i<NRA; i++)    
-// 		    {
-// 		    // printf("Thread=%d did row=%d\n",tid,i);
-// 		    for(j=0; j<NCB; j++)       
-// 		      for (k=0; k<NCA; k++)
-// 		        c[i][j] += a[i][k] * b[k][j];
-// 		    }
-// 		  }   /*** End of parallel region ***/
-
-// 		}
-
-// }
+	return;
+}

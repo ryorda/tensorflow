@@ -29,6 +29,6 @@ public class Custom {
   public native void copyMatrixTest();
   public native void multiplicationMatrixTest();
   public native void matrixVectorTest();
-  // public native void matrixVectorOpenMPTest();
+  public native void matrixVectorNaiveTest();
 
 }
