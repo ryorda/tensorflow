@@ -62,6 +62,31 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv*, jclass);
 JNIEXPORT void JNICALL
 Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv*, jclass);
 
+/*
+ *  Class:     org_tensorflow_lite_Custom
+ *  Method:    matrixVectorBlockTest
+ *  Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorBlock2Test(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorBlock4Test(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorBlock8Test(JNIEnv*, jclass);
+/*
+ *  Class:     org_tensorflow_lite_Custom
+ *  Method:    naiveDotVectorTest
+ *  Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_naiveDotVectorTest(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_block8DotVectorTest(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_block16DotVectorTest(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_block32DotVectorTest(JNIEnv*, jclass);
+
 #ifdef __cplusplus
 }  // extern "C"
 #endif  // __cplusplus

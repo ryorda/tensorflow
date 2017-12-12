@@ -66,8 +66,8 @@ void rsMatmul_sgemm(void* a_ptr, bool a_trans, void* b_ptr, bool b_trans, void* 
 
     sp<ScriptIntrinsicBLAS> script = initSC();
 
-    timespec start, finish;
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    // timespec start, finish;
+    // clock_gettime(CLOCK_MONOTONIC, &start);
 
     // script->SGEMM(a_transpose, b_transpose, alpha, a_alloc_vec[idx], b_alloc_vec[idx], beta, c_alloc_vec[idx]);
     script->SGEMM(a_transpose, b_transpose, alpha, a_alloc, b_alloc, beta, c_alloc);
@@ -75,11 +75,10 @@ void rsMatmul_sgemm(void* a_ptr, bool a_trans, void* b_ptr, bool b_trans, void* 
     // c_alloc_vec[idx]->copy2DRangeTo(0, 0, n, m, c_ptr);
     c_alloc->copy2DRangeTo(0, 0, n, m, c_ptr);
     //count++;
+    
+    // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-    clock_gettime(CLOCK_MONOTONIC, &finish);
-    float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
-
-    __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMM %dx%dx%d , consume time : %f sec", m, k, n, delta_time );
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMM %dx%dx%d , consume time : %f sec", m, k, n, delta_time );
     
 };
 
@@ -112,8 +111,8 @@ void rsMatmul_sgemv(void* x_ptr, int inc_x, void* a_ptr, void* y_ptr,
     //a_alloc_vec[idx]->copy2DRangeFrom(0, 0, k, m, a_ptr);
     //b_alloc_vec[idx]->copy2DRangeFrom(0, 0, n, k, b_ptr);
 
-    timespec start, finish, finish2, finish3;
-    clock_gettime(CLOCK_MONOTONIC, &start);
+    // timespec start, finish, finish2, finish3;
+    // clock_gettime(CLOCK_MONOTONIC, &start);
 
     if (code > 0 && code < 8 && last_gemv_alloc_visit[code])
         a_alloc = last_gemv_alloc[code];
@@ -126,29 +125,23 @@ void rsMatmul_sgemv(void* x_ptr, int inc_x, void* a_ptr, void* y_ptr,
 
     x_alloc->copy1DRangeFrom(0, k, x_ptr);
 
-    clock_gettime(CLOCK_MONOTONIC, &finish);
-
 
     sp<ScriptIntrinsicBLAS> script = initSC();
     // script->SGEMM(a_transpose, b_transpose, alpha, a_alloc, b_alloc, beta, c_alloc);
     script->SGEMM(RsBlasTranspose::RsBlasNoTrans, RsBlasTranspose::RsBlasNoTrans, alpha, x_alloc, a_alloc, beta, y_alloc);
     // script->SGEMV(a_transpose, alpha, a_alloc, x_alloc, inc_x, beta, y_alloc, inc_y);
 
-    clock_gettime(CLOCK_MONOTONIC, &finish2);
-
     // c_alloc_vec[idx]->copy2DRangeTo(0, 0, n, m, c_ptr);
     y_alloc->copy1DRangeTo(0, m, y_ptr);
     //count++;
 
-    clock_gettime(CLOCK_MONOTONIC, &finish3);
+    // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    // float delta_time2 = (finish2.tv_sec - finish.tv_sec) + ((float)(finish2.tv_nsec - finish.tv_nsec)/1000000000.0f);
+    // float delta_time3 = (finish3.tv_sec - start.tv_sec) + ((float)(finish3.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-    float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
-    float delta_time2 = (finish2.tv_sec - finish.tv_sec) + ((float)(finish2.tv_nsec - finish.tv_nsec)/1000000000.0f);
-    float delta_time3 = (finish3.tv_sec - start.tv_sec) + ((float)(finish3.tv_nsec - start.tv_nsec)/1000000000.0f);
-
-    __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMV %dx%dx1 : copyTo , consume time : %f sec", m, k, delta_time );
-    __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMV %dx%dx1 : compute, consume time : %f sec", m, k, delta_time2 );
-    __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMV %dx%dx1 : overall , consume time : %f sec", m, k, delta_time3 );
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMV %dx%dx1 : copyTo , consume time : %f sec", m, k, delta_time );
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMV %dx%dx1 : compute, consume time : %f sec", m, k, delta_time2 );
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RS GEMV %dx%dx1 : overall , consume time : %f sec", m, k, delta_time3 );
 };
 
 
