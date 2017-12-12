@@ -356,7 +356,7 @@ inline void FullyConnected(const float* input_data, const Dims<4>& input_dims,
                                    output_activation_max);
 
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedFullyConnected float32" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedFullyConnected float32" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -616,7 +616,7 @@ inline void FullyConnected(const uint8* input_data, const Dims<4>& input_dims,
       gemm_context, filter_matrix, input_matrix, &output_matrix, filter_offset,
       input_offset, output_pipeline);
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedFullyConnected uint8" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedFullyConnected uint8" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -813,7 +813,7 @@ inline void Conv(const float* input_data, const Dims<4>& input_dims,
                                    output_dims, output_activation_min,
                                    output_activation_max);
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedConv float32" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedConv float32" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -915,7 +915,7 @@ inline void Conv(const uint8* input_data, const Dims<4>& input_dims,
       gemm_context, filter_matrix, input_matrix, &output_matrix, filter_offset,
       input_offset, output_pipeline);
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedConv uint8" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "OptimizedConv uint8" );
 }
 
 // legacy, for compatibility with old checked-in code

@@ -33,8 +33,6 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/internal/types.h"
 #include "tensorflow/contrib/lite/kernels/internal/tensor_utils.h"
 
-#include <time.h>
-
 namespace tflite {
 namespace multithreaded_ops {
 
@@ -128,10 +126,6 @@ class EigenTensorConvFunctor {
                                 stride_rows == 1 && stride_cols == 1);
     if (is_1x1_kernel) {
 
-  // timespec start, finish;
-  // clock_gettime(CLOCK_MONOTONIC, &start);
-      // For 1x1 kernel, the 2D convolution is reduced to matrix
-      // multiplication.
       const int conv_width = output_height * output_width;
       Eigen::array<Eigen::IndexPair<Eigen::DenseIndex>, 1> dim_pair;
       dim_pair[0] = Eigen::IndexPair<Eigen::DenseIndex>(1, 0);
@@ -140,17 +134,6 @@ class EigenTensorConvFunctor {
       ConstEigenMatrix filter(filter_data, input_depth, filter_count);
       MatMulConvFunctor<Eigen::ThreadPoolDevice, T>()(device, output, input,
                                                       filter, dim_pair);
-
-      // Compute output += weight * input
-      // tensor_utils::MatrixBatchVectorMultiplyAccumulate(
-      //     input_data, conv_width, input_depth, filter_data, filter_count,
-          // output_data, /*result_stride=*/1);
-
-  clock_gettime(CLOCK_MONOTONIC, &finish);
-  float conv_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
-  
-  
-      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Multihthread Conv kernel1 %d x %d x %d : %f sec", conv_width, filter_count, input_depth, conv_time);
 
     } else if (filter_height == input_height && filter_width == input_width &&
                pad_width == 0 && pad_height == 0) {
