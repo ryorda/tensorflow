@@ -4,6 +4,8 @@ def tflite_copts():
   """Defines compile time flags."""
   copts = [
       "-DFARMHASH_NO_CXX_STRING",
+      "-fopenmp",
+      "-static",
   ] + select({
           "//tensorflow:android_arm64": [
               "-std=c++11",

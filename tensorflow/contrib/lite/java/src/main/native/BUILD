@@ -40,13 +40,14 @@ cc_library(
     linkopts = [
         "-lm",
         "-ldl",
+        "-lgomp",
+        "-fopenmp",
     ],
     deps = [
         "//tensorflow/contrib/lite:context",
         "//tensorflow/contrib/lite:framework",
         "//tensorflow/contrib/lite:schema_fbs_version",
         "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
-        ":libomp"
     ],
     alwayslink = 1,
     linkstatic = 1,
@@ -110,17 +111,4 @@ filegroup(
         ],
     ),
     visibility = ["//tensorflow:__subpackages__"],
-)
-
-cc_library(
-    name = "libomp",
-    srcs = [
-        "libsupport/libomp.so",
-    ],
-    hdrs = [
-        "libsupport/kmp_config.h",
-        "libsupport/omp.h",
-    ],
-    alwayslink = 1,
-    linkstatic = 1,
 )

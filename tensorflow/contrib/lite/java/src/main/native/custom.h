@@ -56,11 +56,11 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv*, jclass);
 
 /*
  *  Class:     org_tensorflow_lite_Custom
- *  Method:    normalMatrixVectorTest
+ *  Method:    matrixVectorNaiveTest
  *  Signature: ()Ljava/lang/String;
  */
 JNIEXPORT void JNICALL
-Java_org_tensorflow_lite_Custom_normalMatrixVectorTest(JNIEnv*, jclass);
+Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv*, jclass);
 
 /*
  *  Class:     org_tensorflow_lite_Custom
@@ -68,7 +68,27 @@ Java_org_tensorflow_lite_Custom_normalMatrixVectorTest(JNIEnv*, jclass);
  *  Signature: ()Ljava/lang/String;
  */
 JNIEXPORT void JNICALL
-Java_org_tensorflow_lite_Custom_matrixVectorOpenMPTest(JNIEnv*, jclass);
+Java_org_tensorflow_lite_Custom_matrixVectorOpenMP2Test(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorOpenMP4Test(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorOpenMP8Test(JNIEnv*, jclass);
+
+/*
+ *  Class:     org_tensorflow_lite_Custom
+ *  Method:    matrixVectorBlock2Test
+ *  Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorBlock2Test(JNIEnv*, jclass);
+
+/*
+ *  Class:     org_tensorflow_lite_Custom
+ *  Method:    matrixVectorOpenMPBlock2Test
+ *  Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorOpenMPBlock2Test(JNIEnv*, jclass);
 
 #ifdef __cplusplus
 }  // extern "C"

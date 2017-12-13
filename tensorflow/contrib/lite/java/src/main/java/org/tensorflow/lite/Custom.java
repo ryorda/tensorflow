@@ -29,7 +29,11 @@ public class Custom {
   public native void copyMatrixTest();
   public native void multiplicationMatrixTest();
   public native void matrixVectorTest();
-  public native void matrixVectorOpenMPTest();
-  public native void normalMatrixVectorTest();
+  public native void matrixVectorNaiveTest();
+  public native void matrixVectorOpenMP2Test();
+  public native void matrixVectorOpenMP4Test();
+  public native void matrixVectorOpenMP8Test();
+  public native void matrixVectorBlock2Test();
+  public native void matrixVectorOpenMPBlock2Test();
 
 }

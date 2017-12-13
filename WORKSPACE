@@ -30,7 +30,7 @@ android_sdk_repository(
 
 android_ndk_repository(
     name="androidndk",
-    path="/home/ryorda/Downloads/android-ndk-r15c",
+    path="/home/ryorda/Downloads/android-ndk-r10e",
     # This needs to be 14 or higher to compile TensorFlow.
     # Please specify API level to >= 21 to build for 64-bit
     # archtectures or the Android NDK will automatically select biggest
