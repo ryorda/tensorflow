@@ -354,7 +354,7 @@ Java_org_tensorflow_lite_NativeInterpreterWrapper_run(
                      values);
   if (status != kTfLiteOk) return nullptr;
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "test" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "test" );
   
   // runs inference
   if (interpreter->Invoke() != kTfLiteOk) {

@@ -46,8 +46,8 @@ Java_org_tensorflow_lite_Custom_copyVectorTest(JNIEnv* env, jclass /*clazz*/) {
 			vec.push_back(255);
 
 		// allocation time
-		timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 		
 		sp<const Element> e = Element::F32(mRS);
 
@@ -56,22 +56,22 @@ Java_org_tensorflow_lite_Custom_copyVectorTest(JNIEnv* env, jclass /*clazz*/) {
         sp<Allocation> alloc = Allocation::createTyped(mRS, t, RS_ALLOCATION_USAGE_SHARED | RS_ALLOCATION_USAGE_SCRIPT);
 
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyVector %d : allocation : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyVector %d : allocation : %f sec", size, delta_time );
 
 
 		// copy time
 
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 
 		alloc->copy1DRangeFrom(0, size, &vec[0]);
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyVector %d : copy : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyVector %d : copy : %f sec", size, delta_time );
 	}
 }
 
@@ -92,8 +92,8 @@ Java_org_tensorflow_lite_Custom_copyMatrixTest(JNIEnv* env, jclass /*clazz*/) {
 				matrix[i][j] = 255;
 		
 		// allocation time
-		timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 		
 		sp<const Element> e = Element::F32(mRS);
 
@@ -102,22 +102,22 @@ Java_org_tensorflow_lite_Custom_copyMatrixTest(JNIEnv* env, jclass /*clazz*/) {
         sp<Allocation> alloc = Allocation::createTyped(mRS, t, RS_ALLOCATION_USAGE_SHARED | RS_ALLOCATION_USAGE_SCRIPT);
 
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 2D %d : allocation : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 2D %d : allocation : %f sec", size, delta_time );
 
 
 		// copy time
 
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 
 		alloc->copy2DRangeFrom(0, 0, size, size, matrix);
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 2D %d : copy : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 2D %d : copy : %f sec", size, delta_time );
 
 	}  
 
@@ -135,8 +135,8 @@ Java_org_tensorflow_lite_Custom_copyMatrixTest(JNIEnv* env, jclass /*clazz*/) {
 				matrix[i * size + j] = 255;
 		
 		// allocation time
-		timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 		
 		sp<const Element> e = Element::F32(mRS);
 
@@ -145,22 +145,22 @@ Java_org_tensorflow_lite_Custom_copyMatrixTest(JNIEnv* env, jclass /*clazz*/) {
         sp<Allocation> alloc = Allocation::createTyped(mRS, t, RS_ALLOCATION_USAGE_SHARED | RS_ALLOCATION_USAGE_SCRIPT);
 
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 1D %d : allocation : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 1D %d : allocation : %f sec", size, delta_time );
 
 
 		// copy time
 
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 
 		alloc->copy1DRangeFrom(0, size * size, matrix);
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 1D %d : copy : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 1D %d : copy : %f sec", size, delta_time );
 
 	} 
 }
@@ -182,18 +182,18 @@ Java_org_tensorflow_lite_Custom_multiplicationMatrixTest(JNIEnv* env, jclass /*c
 				matrix[i * size + j] = 255, matrix2[i * size + j] = 255;
 		
 		// allocation time
-		timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 
 		androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<float*>(matrix)), 0,
 			static_cast<void*>(const_cast<float*>(matrix2)), 0, 
 			static_cast<void*>(const_cast<float*>(result)), size, size, size, 1, 0);
 	
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RSMatrixMatrixMultiplication : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RSMatrixMatrixMultiplication : %d : %f sec", size, delta_time );
 
 	}  
 
@@ -216,8 +216,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
 				matrix[i * size + j] = 255, matrix2[i] = 255;
 		
 		// allocation time
-		timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 
 
 
@@ -233,10 +233,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
 		// 	static_cast<void*>(const_cast<float*>(result)), size, 1, size, 1, 0);
 
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RSMatrixVector : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " RSMatrixVector : %d : %f sec", size, delta_time );
 
 	}  
 
@@ -253,8 +253,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
 	// 			matrix[i * size + j] = 255, matrix2[i] = 255;
 		
 	// 	// allocation time
-	// 	timespec start, finish;
-	// 	clock_gettime(CLOCK_MONOTONIC, &start);
+	// 	// timespec start, finish;
+	// 	// clock_gettime(CLOCK_MONOTONIC, &start);
 
 
 	// 	androidrs::matmul::rsMatmul_sgemv(
@@ -269,10 +269,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorTest(JNIEnv* env, jclass /*clazz*/) 
 	// 	// 	static_cast<void*>(const_cast<float*>(result)), size, 1, size, 1, 0);
 
 
-	// 	clock_gettime(CLOCK_MONOTONIC, &finish);
-	// 	float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+	// 	// clock_gettime(CLOCK_MONOTONIC, &finish);
+	// 	// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-	// 	__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " Cache RSMatrixVector : %d : %f sec", size, delta_time );
+	// 	// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " Cache RSMatrixVector : %d : %f sec", size, delta_time );
 
 	// }  
 
@@ -297,8 +297,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv* env, jclass /*claz
 		float* vector = matrix2;
 
 		// allocation time
-		timespec start, finish;
-		clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		// clock_gettime(CLOCK_MONOTONIC, &start);
 
 		float* result_in_batch = result;
 		for (int b = 0; b < 1; b++) {
@@ -312,10 +312,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorNaiveTest(JNIEnv* env, jclass /*claz
 			}
 		}
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " NaiveMatrixVector : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " NaiveMatrixVector : %d : %f sec", size, delta_time );
 
 	}  
 
@@ -341,8 +341,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP2Test(JNIEnv* env, jclass /*cl
 		int m_cols = size;
 		float* vector = matrix2;
 
-		timespec start, finish;
-		  clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		  // clock_gettime(CLOCK_MONOTONIC, &start);
 
 		  float* result_in_batch = result;
 		  for (int b = 0; b < n_batch; b++) {
@@ -356,10 +356,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP2Test(JNIEnv* env, jclass /*cl
 		      }
 		  }
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPMatrixVector 2 : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPMatrixVector 2 : %d : %f sec", size, delta_time );
 	}
 }
 
@@ -384,8 +384,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP4Test(JNIEnv* env, jclass /*cl
 		int m_cols = size;
 		float* vector = matrix2;
 
-		timespec start, finish;
-		  clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		  // clock_gettime(CLOCK_MONOTONIC, &start);
 
 		  float* result_in_batch = result;
 		  for (int b = 0; b < n_batch; b++) {
@@ -399,10 +399,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP4Test(JNIEnv* env, jclass /*cl
 		      }
 		  }
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPMatrixVector 4 : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPMatrixVector 4 : %d : %f sec", size, delta_time );
 	}
 }
 
@@ -427,8 +427,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP8Test(JNIEnv* env, jclass /*cl
 		int m_cols = size;
 		float* vector = matrix2;
 
-		timespec start, finish;
-		  clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		  // clock_gettime(CLOCK_MONOTONIC, &start);
 
 		  float* result_in_batch = result;
 		  for (int b = 0; b < n_batch; b++) {
@@ -442,10 +442,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP8Test(JNIEnv* env, jclass /*cl
 		      }
 		  }
 
-		clock_gettime(CLOCK_MONOTONIC, &finish);
-		float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// clock_gettime(CLOCK_MONOTONIC, &finish);
+		// float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPMatrixVector 8 : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPMatrixVector 8 : %d : %f sec", size, delta_time );
 	}
 }
 
@@ -470,8 +470,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorBlock2Test(JNIEnv* env, jclass /*cla
 		float* vector = matrix2;
 		
 		// allocation time
-		timespec start, finish;
-		  clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		  // clock_gettime(CLOCK_MONOTONIC, &start);
 
 		  float* result_in_batch = result;
 
@@ -537,10 +537,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorBlock2Test(JNIEnv* env, jclass /*cla
 
 		  }
 
-		  clock_gettime(CLOCK_MONOTONIC, &finish);
-		  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		  // clock_gettime(CLOCK_MONOTONIC, &finish);
+		  // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " BlockMatrixVector 2 : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " BlockMatrixVector 2 : %d : %f sec", size, delta_time );
 
 	}  
 
@@ -567,8 +567,8 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMPBlock2Test(JNIEnv* env, jclass
 		float* vector = matrix2;
 
 		// allocation time
-		timespec start, finish;
-		  clock_gettime(CLOCK_MONOTONIC, &start);
+		// timespec start, finish;
+		  // clock_gettime(CLOCK_MONOTONIC, &start);
 
 		  float* result_in_batch = result;
 
@@ -636,10 +636,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMPBlock2Test(JNIEnv* env, jclass
 
 		  }
 
-		  clock_gettime(CLOCK_MONOTONIC, &finish);
-		  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		  // clock_gettime(CLOCK_MONOTONIC, &finish);
+		  // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
-		__android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPBlockMatrixVector 8 2 : %d : %f sec", size, delta_time );
+		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " OpenMPBlockMatrixVector 8 2 : %d : %f sec", size, delta_time );
 
 	}  
 

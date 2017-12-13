@@ -227,13 +227,13 @@ TfLiteStatus EvalFloat(TfLiteContext* context, TfLiteNode* node,
                        output_activation_min, output_activation_max,        \
                        GetTensorData<float>(output), GetTensorDims(output))
   if (kernel_type == kReference) {
-    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kReference");
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kReference");
     TF_LITE_FULLY_CONNECTED(reference_ops);
   } else if (kernel_type == kPie) {
-    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kPie");
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kPie");
     return EvalPie(context, node, params, data, input, filter, bias, output);
   } else {
-    __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected optimized");
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected optimized");
     TF_LITE_FULLY_CONNECTED(optimized_ops);
   }
 #undef TF_LITE_FULLY_CONNECTED
@@ -255,20 +255,20 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   TfLiteTensor* output = GetOutput(context, node, kOutputTensor);
 
 
-  timespec start, finish;
-  clock_gettime(CLOCK_MONOTONIC, &start);
+  // timespec start, finish;
+  // clock_gettime(CLOCK_MONOTONIC, &start);
 
 
   TfLiteStatus status;
   switch (input->type) {  // Already know in/out types are same.
     case kTfLiteFloat32:
-      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kfloat32");
+      // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kfloat32");
 
       status = EvalFloat<kernel_type>(context, node, params, data, input, filter,
                                     bias, output);
       break;
     case kTfLiteUInt8:
-      __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kuint8");
+      // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected kuint8");
       status = EvalQuantized<kernel_type>(context, node, params, data, input,
                                         filter, bias, output);
       break;
@@ -278,10 +278,10 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       break;
   }
 
-  clock_gettime(CLOCK_MONOTONIC, &finish);
-  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  // clock_gettime(CLOCK_MONOTONIC, &finish);
+  // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
   
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected %d x %d x %d , consume time : %f sec", filter->dims->data[0], filter->dims->data[1], input->dims->data[0], delta_time );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected %d x %d x %d , consume time : %f sec", filter->dims->data[0], filter->dims->data[1], input->dims->data[0], delta_time );
   
   return status;
 }

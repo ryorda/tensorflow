@@ -37,8 +37,8 @@ void RenderScriptMatrixBatchVectorMultiplyAccumulate(const float* matrix,
                                                  int result_stride) {
   
 
-  timespec start, finish;
-  clock_gettime(CLOCK_MONOTONIC, &start);
+  // timespec start, finish;
+  // clock_gettime(CLOCK_MONOTONIC, &start);
 
   omp_set_dynamic(0);     // Explicitly disable dynamic teams
   omp_set_num_threads(4);
@@ -109,10 +109,10 @@ void RenderScriptMatrixBatchVectorMultiplyAccumulate(const float* matrix,
 
   }
 
-  clock_gettime(CLOCK_MONOTONIC, &finish);
-  float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  // clock_gettime(CLOCK_MONOTONIC, &finish);
+  // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
   
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " RenderScriptMatrixBatchVector %d x %d x %d , consume time : %f sec", m_rows, m_cols, n_batch, delta_time );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " RenderScriptMatrixBatchVector %d x %d x %d , consume time : %f sec", m_rows, m_cols, n_batch, delta_time );
   
   omp_set_num_threads(8);
   omp_set_dynamic(1);     // Explicitly disable dynamic teams

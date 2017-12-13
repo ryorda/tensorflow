@@ -218,7 +218,7 @@ inline void Conv(const float* input_data, const Dims<4>& input_dims,
   }
 
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedConv float32" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedConv float32" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -318,7 +318,7 @@ inline void Conv(const uint8* input_data, const Dims<4>& input_dims,
   }
 
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedConv uint8" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedConv uint8" );
 }
 
 // legacy, for compatibility with old checked-in code
@@ -484,7 +484,7 @@ inline void FullyConnected(const float* input_data, const Dims<4>& input_dims,
     }
   }
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedFullyConnected float32" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedFullyConnected float32" );
   
 }
 
@@ -543,7 +543,7 @@ inline void FullyConnected(const uint8* input_data, const Dims<4>& input_dims,
     }
   }
 
-  __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedFullyConnected uint8" );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "ReferencedFullyConnected uint8" );
 }
 
 // legacy, for compatibility with old checked-in code
