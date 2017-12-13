@@ -279,9 +279,9 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   }
 
   // clock_gettime(CLOCK_MONOTONIC, &finish);
-  float matmul_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+  // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
   
-  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected %d x %d x %d , consume time : %f sec", filter->dims->data[0], filter->dims->data[1], input->dims->data[0], matmul_time );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "FullyConnected %d x %d x %d , consume time : %f sec", filter->dims->data[0], filter->dims->data[1], input->dims->data[0], delta_time );
   
   return status;
 }

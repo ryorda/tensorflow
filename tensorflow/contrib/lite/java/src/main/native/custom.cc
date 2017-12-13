@@ -68,7 +68,7 @@ Java_org_tensorflow_lite_Custom_copyVectorTest(JNIEnv* env, jclass /*clazz*/) {
 		alloc->copy1DRangeFrom(0, size, &vec[0]);
 
 		// clock_gettime(CLOCK_MONOTONIC, &finish);
-		delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
 		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyVector %d : copy , consume time : %f sec", size, delta_time );
 	}
@@ -114,7 +114,7 @@ Java_org_tensorflow_lite_Custom_copyMatrixTest(JNIEnv* env, jclass /*clazz*/) {
 		alloc->copy2DRangeFrom(0, 0, size, size, matrix);
 
 		// clock_gettime(CLOCK_MONOTONIC, &finish);
-		delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
 		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 2D %d : copy , consume time : %f sec", size, delta_time );
 
@@ -157,7 +157,7 @@ Java_org_tensorflow_lite_Custom_copyMatrixTest(JNIEnv* env, jclass /*clazz*/) {
 		alloc->copy1DRangeFrom(0, size * size, matrix);
 
 		// clock_gettime(CLOCK_MONOTONIC, &finish);
-		delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+		// delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
 
 		// __android_log_print(ANDROID_LOG_INFO, "LOG_TEST", " CopyMatrix 1D %d : copy , consume time : %f sec", size, delta_time );
 

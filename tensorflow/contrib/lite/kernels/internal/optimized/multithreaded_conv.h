@@ -134,6 +134,10 @@ class EigenTensorConvFunctor {
       ConstEigenMatrix filter(filter_data, input_depth, filter_count);
       MatMulConvFunctor<Eigen::ThreadPoolDevice, T>()(device, output, input,
                                                       filter, dim_pair);
+      // Compute output += weight * input
+      // tensor_utils::MatrixBatchVectorMultiplyAccumulate(
+      //     input_data, conv_width, input_depth, filter_data, filter_count,
+      //     output_data, /*result_stride=*/1);
 
     } else if (filter_height == input_height && filter_width == input_width &&
                pad_width == 0 && pad_height == 0) {

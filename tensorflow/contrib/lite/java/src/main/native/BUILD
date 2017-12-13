@@ -15,7 +15,7 @@ cc_library(
         "nativeinterpreterwrapper_jni.cc",
         "tensor_jni.cc",
         "tensorflow_lite_jni.cc",
-        "custom.cc",
+        # "custom.cc",
     ] + select({
         # The Android toolchain makes "jni.h" available in the include path.
         # For non-Android toolchains, generate jni.h and jni_md.h.
@@ -45,7 +45,7 @@ cc_library(
         "//tensorflow/contrib/lite:context",
         "//tensorflow/contrib/lite:framework",
         "//tensorflow/contrib/lite:schema_fbs_version",
-        "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
+        # "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
     ],
     alwayslink = 1,
 )

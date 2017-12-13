@@ -18,6 +18,11 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/activation_functor.h"
 #include "tensorflow/contrib/lite/kernels/op_macros.h"
 
+
+#include "tensorflow/contrib/android_renderscript_ops/jni/RScommon.h"
+#include "tensorflow/contrib/android_renderscript_ops/jni/rsMatmul.h"
+#include "tensorflow/contrib/lite/kernels/internal/optimized/tensor_utils_impl.h"
+
 /// logging
 #include <android/log.h>
 #include <fstream>
@@ -101,6 +106,23 @@ void RenderScriptMatrixBatchVectorMultiplyAccumulate(const float* matrix,
     }
 
   }
+
+  // if (result_stride == 1){
+  //   for (int b = 0; b < n_batch; b++) {
+  //     const float* matrix_ptr = matrix;
+  //     const float* vector_in_batch = vector + b * m_cols;
+  //     androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<float*>(matrix_ptr)), 0,
+  //                                        static_cast<void*>(const_cast<float*>(vector_in_batch)), 0, 
+  //                                        static_cast<void*>(const_cast<float*>(result)), m_rows, 1, m_cols, 1, 0);
+  //   }
+  // }
+  // else {
+  //   PortableMatrixBatchVectorMultiplyAccumulate(matrix,
+  //                                                m_rows, m_cols,
+  //                                                vector,
+  //                                                n_batch, result,
+  //                                                result_stride);
+  // }
 
   // clock_gettime(CLOCK_MONOTONIC, &finish);
   // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);

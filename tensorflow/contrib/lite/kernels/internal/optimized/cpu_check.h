@@ -69,10 +69,12 @@ inline bool TestIsAndroid(){
 
 #else
 
-#define NEON_OR_PORTABLE_OR_RS(funcname, ...)              \
-  TestIsAndroid() ? RenderScript##funcname(__VA_ARGS__) \
-                  : ( TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \
-                                           : Portable##funcname(__VA_ARGS__) )
+#define NEON_OR_PORTABLE_OR_RS(funcname, ...) Portable##funcname(__VA_ARGS__)
+
+// #define NEON_OR_PORTABLE_OR_RS(funcname, ...)              \
+//   TestIsAndroid() ? RenderScript##funcname(__VA_ARGS__) \
+//                   : ( TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \
+//                                            : Portable##funcname(__VA_ARGS__) )
 
 #define NEON_OR_PORTABLE(funcname, ...)              \
   TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \

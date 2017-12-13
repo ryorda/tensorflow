@@ -269,6 +269,7 @@ cc_library(
         ":portable_tensor_utils",
         "//tensorflow/contrib/lite:builtin_op_data",
         "//tensorflow/contrib/lite/kernels:activation_functor",
+        "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
     ],
 )
 
