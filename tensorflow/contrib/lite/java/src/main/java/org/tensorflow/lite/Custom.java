@@ -24,6 +24,10 @@ public class Custom {
       System.err.println("TensorFlowLite: failed to load native library: " + e.getMessage());
     }
   }
+  
+  public native void parallel2VectorCwise();
+  public native void parallel4VectorCwise();
+  public native void parallel8VectorCwise();
 
   public native void copyVectorTest();
   public native void copyMatrixTest();
@@ -34,6 +38,14 @@ public class Custom {
   public native void matrixVectorOpenMP4Test();
   public native void matrixVectorOpenMP8Test();
   public native void matrixVectorBlock2Test();
+  public native void matrixVectorBlock4Test();
+  public native void matrixVectorBlock8Test();
   public native void matrixVectorOpenMPBlock2Test();
+
+  
+  public native void runNumericTest();
+  
+  public native void runNeonNumericTest();
+
 
 }

@@ -399,7 +399,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   // clock_gettime(CLOCK_MONOTONIC, &finish);
   // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
   
-  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv %d x %d x %d , consume time : %f sec", input->dims->data[0], input->dims->data[1], filter->dims->data[0], delta_time );
+  // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", "Conv %d x %d x %d & %d x %d x %d , consume time : %f sec", input->dims->data[0], input->dims->data[1], input->dims->data[2], filter->dims->data[0], filter->dims->data[1], filter->dims->data[2], delta_time );
   
 
   return kTfLiteOk;

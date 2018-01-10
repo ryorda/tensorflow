@@ -65,14 +65,15 @@ inline bool TestIsAndroid(){
 // Neon isn't available at all on ARMv5.
 #define NEON_OR_PORTABLE(funcname, ...) Portable##funcname(__VA_ARGS__)
 
-#define NEON_OR_PORTABLE_OR_RS(funcname, ...) Portable##funcname(__VA_ARGS__)
+#define NEON_OR_PORTABLE_OR_CUSTOM(funcname, ...) Portable##funcname(__VA_ARGS__)
 
 #else
 
-#define NEON_OR_PORTABLE_OR_RS(funcname, ...)              \
-  TestIsAndroid() ? RenderScript##funcname(__VA_ARGS__) \
+#define NEON_OR_PORTABLE_OR_CUSTOM(funcname, ...)              \
+  TestIsAndroid() ? Custom##funcname(__VA_ARGS__) \
                   : ( TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \
                                            : Portable##funcname(__VA_ARGS__) )
+// #define NEON_OR_PORTABLE_OR_RS(funcname, ...) Portable##funcname(__VA_ARGS__)
 
 #define NEON_OR_PORTABLE(funcname, ...)              \
   TestCPUFeatureNeon() ? Neon##funcname(__VA_ARGS__) \

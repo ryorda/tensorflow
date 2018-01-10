@@ -28,6 +28,8 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/kernel_util.h"
 #include "tensorflow/contrib/lite/kernels/op_macros.h"
 
+#include <android/log.h>
+
 namespace tflite {
 namespace ops {
 namespace builtin {

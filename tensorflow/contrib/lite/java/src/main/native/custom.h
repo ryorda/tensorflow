@@ -81,6 +81,10 @@ Java_org_tensorflow_lite_Custom_matrixVectorOpenMP8Test(JNIEnv*, jclass);
  */
 JNIEXPORT void JNICALL
 Java_org_tensorflow_lite_Custom_matrixVectorBlock2Test(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorBlock4Test(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_matrixVectorBlock8Test(JNIEnv*, jclass);
 
 /*
  *  Class:     org_tensorflow_lite_Custom
@@ -89,6 +93,18 @@ Java_org_tensorflow_lite_Custom_matrixVectorBlock2Test(JNIEnv*, jclass);
  */
 JNIEXPORT void JNICALL
 Java_org_tensorflow_lite_Custom_matrixVectorOpenMPBlock2Test(JNIEnv*, jclass);
+
+/*
+ *  Class:     org_tensorflow_lite_Custom
+ *  Method:    parallel2VectorCwise
+ *  Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_parallel2VectorCwise(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_parallel4VectorCwise(JNIEnv*, jclass);
+JNIEXPORT void JNICALL
+Java_org_tensorflow_lite_Custom_parallel8VectorCwise(JNIEnv*, jclass);
 
 #ifdef __cplusplus
 }  // extern "C"

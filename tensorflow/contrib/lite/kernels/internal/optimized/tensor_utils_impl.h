@@ -28,9 +28,16 @@ limitations under the License.
 namespace tflite {
 namespace tensor_utils {
 
+
+// Multiply a matrix by a matrix
+void CustomMatrixMatrixMultiply(const float* matrix,
+                                   int m_rows, int m_cols,
+                                   const float* matrix2,
+                                   int m2_cols, float* result);
+
 // Multiply a matrix by a batch vector, and store results in a batch-size
 // vector.
-void RenderScriptMatrixBatchVectorMultiplyAccumulate(const float* matrix,
+void CustomMatrixBatchVectorMultiplyAccumulate(const float* matrix,
                                                  int m_rows, int m_cols,
                                                  const float* vector,
                                                  int n_batch, float* result,
@@ -80,6 +87,11 @@ void NeonBatchVectorBatchVectorDotProduct(const float* vector1,
 // Cwise product and accumulate of a vector and a batch-vector. Since it's a MAC
 // operation, the assumption here is that result array is initialized to valid
 // values.
+void CustomVectorBatchVectorCwiseProductAccumulate(const float* vector,
+                                                     int v_size,
+                                                     const float* batch_vector,
+                                                     int n_batch,
+                                                     float* result);
 void PortableVectorBatchVectorCwiseProductAccumulate(const float* vector,
                                                      int v_size,
                                                      const float* batch_vector,

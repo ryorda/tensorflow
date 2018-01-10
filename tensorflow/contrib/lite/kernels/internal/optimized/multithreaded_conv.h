@@ -32,6 +32,9 @@ limitations under the License.
 #include "tensorflow/contrib/lite/kernels/internal/optimized/optimized_ops.h"
 #include "tensorflow/contrib/lite/kernels/internal/types.h"
 
+
+#include "tensorflow/contrib/lite/kernels/internal/tensor_utils.h"
+
 namespace tflite {
 namespace multithreaded_ops {
 
@@ -121,6 +124,10 @@ class EigenTensorConvFunctor {
                   T* output_data, int output_height, int output_width) {
     const Eigen::ThreadPoolDevice& device = GetThreadPoolDevice();
 
+
+  // timespec start, finish;
+  // clock_gettime(CLOCK_MONOTONIC, &start);
+
     const bool is_1x1_kernel = (filter_height == 1 && filter_width == 1 &&
                                 stride_rows == 1 && stride_cols == 1);
     if (is_1x1_kernel) {
@@ -134,6 +141,20 @@ class EigenTensorConvFunctor {
       ConstEigenMatrix filter(filter_data, input_depth, filter_count);
       MatMulConvFunctor<Eigen::ThreadPoolDevice, T>()(device, output, input,
                                                       filter, dim_pair);
+
+      // androidrs::matmul::rsMatmul_sgemm(static_cast<void*>(const_cast<float*>(input_data)), 0,
+      // static_cast<void*>(const_cast<float*>(filter_data)), 0, 
+      // static_cast<void*>(const_cast<float*>(output_data)), conv_width, input_depth, filter_count, 1, 0);
+      // tensor_utils::MatrixBatchVectorMultiplyAccumulate(input_data,
+      //                                            conv_width, input_depth,
+      //                                            filter_data,
+      //                                            filter_count, output_data,
+      //                                            1);
+      // clock_gettime(CLOCK_MONOTONIC, &finish);
+      // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " Matmul 1x1 kernel %d x %d x %d & %d x %d x %d:  : %f sec", input_depth, input_height, input_width, filter_count, filter_height, filter_width, delta_time );
+
     } else if (filter_height == input_height && filter_width == input_width &&
                pad_width == 0 && pad_height == 0) {
       // If the input data and filter have the same height/width,
@@ -147,6 +168,13 @@ class EigenTensorConvFunctor {
       ConstEigenMatrix filter(filter_data, k, filter_count);
       MatMulConvFunctor<Eigen::ThreadPoolDevice, T>()(device, output, input,
                                                       filter, dim_pair);
+
+
+    //   clock_gettime(CLOCK_MONOTONIC, &finish);
+    // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " Matmul same height/width kernel %d x %d x %d & %d x %d x %d:  : %f sec", input_depth, input_height, input_width, filter_count, filter_height, filter_width, delta_time );
+
     } else {
       EigenTensor output(output_data, input_batches, output_height,
                          output_width, filter_count);
@@ -157,6 +185,12 @@ class EigenTensorConvFunctor {
       output.device(device) =
           Eigen::SpatialConvolution(input, filter, stride_cols, stride_rows,
                                     TfLitePadding2EigenPadding(padding));
+
+
+    //   clock_gettime(CLOCK_MONOTONIC, &finish);
+    // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " SpatialConvolution %d x %d x %d & %d x %d x %d:  : %f sec", input_depth, input_height, input_width, filter_count, filter_height, filter_width, delta_time );
     }
   }
 };
@@ -184,9 +218,19 @@ inline void Conv(const float* input_data, const Dims<4>& input_dims,
                output_depth, stride_height, stride_width, pad_height, pad_width,
                padding, output_data, output_height, output_width);
 
+  // timespec start, finish;
+  // clock_gettime(CLOCK_MONOTONIC, &start);
+
   optimized_ops::AddBiasAndEvalActivationFunction(
       bias_data, bias_dims, output_data, output_dims, output_activation_min,
       output_activation_max);
+
+      // clock_gettime(CLOCK_MONOTONIC, &finish);
+      // float delta_time = (finish.tv_sec - start.tv_sec) + ((float)(finish.tv_nsec - start.tv_nsec)/1000000000.0f);
+    
+    // __android_log_print(ANDROID_LOG_INFO, "LOG_OPS", " add bias %d x %d x %d & %d x %d x %d:  : %f sec", input_depth, input_height, input_width, output_depth, filter_height, filter_width, delta_time );
+
+
 }
 
 }  // namespace multithreaded_ops

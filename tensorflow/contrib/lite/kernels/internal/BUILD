@@ -240,7 +240,7 @@ cc_library(
 cc_library(
     name = "portable_tensor_utils",
     srcs = [
-        "reference/portable_tensor_utils.cc",
+        "reference/portable_tensor_utils.cc",   
     ],
     hdrs = [
         "reference/portable_tensor_utils.h",
@@ -256,11 +256,11 @@ cc_library(
     name = "neon_tensor_utils",
     srcs = [
         "optimized/neon_tensor_utils.cc",
-        "optimized/rs_tensor_utils.cc",
+        "optimized/custom_tensor_utils.cc",
     ],
     hdrs = [
         "optimized/neon_tensor_utils.h",
-        "optimized/rs_tensor_utils.h",
+        "optimized/custom_tensor_utils.h",
         "optimized/tensor_utils_impl.h",
     ],
     copts = NEON_FLAGS_IF_APPLICABLE,
@@ -269,6 +269,7 @@ cc_library(
         ":portable_tensor_utils",
         "//tensorflow/contrib/lite:builtin_op_data",
         "//tensorflow/contrib/lite/kernels:activation_functor",
+        "//tensorflow/contrib/android_renderscript_ops:rs_ops_ndkbuilt",
     ],
 )
 

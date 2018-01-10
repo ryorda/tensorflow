@@ -23,11 +23,17 @@ namespace tensor_utils {
 
 // Multiply a matrix by a batch vector, and store results in a batch-size
 // vector.
-void RenderScriptMatrixBatchVectorMultiplyAccumulate(const float* matrix,
+void CustomMatrixBatchVectorMultiplyAccumulate(const float* matrix,
                                                  int m_rows, int m_cols,
                                                  const float* vector,
                                                  int n_batch, float* result,
                                                  int result_stride);
+
+void CustomVectorBatchVectorCwiseProductAccumulate(const float* vector,
+                                                     int v_size,
+                                                     const float* batch_vector,
+                                                     int n_batch,
+                                                     float* result) 
 
 
 }  // namespace tensor_utils
